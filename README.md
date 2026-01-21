@@ -33,8 +33,29 @@
 
 > <img width="1126" height="1143" alt="image" src="https://github.com/user-attachments/assets/26c734f8-11ce-487a-bb56-69deae836573" />
 
+## 远程/无头模式部署
 
----
+FluxCanvas 需要图形上下文进行内部绘制。
+在没有物理显示器的 Linux 服务器上，必须使用 **Xvfb** 构建虚拟显示环境，否则服务器启动时会因 `No Display` 报错。
+
+### 1. 安装依赖
+
+**Debian / Ubuntu:**
+``bash
+sudo apt-get install xvfb libxrender1 libxtst6
+``
+
+**CentOS / RHEL / Amazon Linux:**
+``bash
+sudo yum install xorg-x11-server-Xvfb libXrender libXtst
+``
+
+### 2. 启动服务器 (Start Server)
+
+``bash
+xvfb-run -a java -jar server.jar
+``
+
 ## 📄 License
 
 MIT License
