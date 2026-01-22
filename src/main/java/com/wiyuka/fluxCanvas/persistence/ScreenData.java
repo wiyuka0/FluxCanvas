@@ -1,4 +1,4 @@
-package persistence;
+package com.wiyuka.fluxCanvas.persistence;
 
 import java.util.List;
 

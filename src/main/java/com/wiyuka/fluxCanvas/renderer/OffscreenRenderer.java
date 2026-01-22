@@ -31,6 +31,8 @@ public class OffscreenRenderer {
 
     private ImGuiContext imGuiContext;
 
+    private static boolean glfwInitialize = false;
+
 
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
@@ -49,6 +51,7 @@ public class OffscreenRenderer {
         if (!glfwInit()) {
             throw new IllegalStateException("无法初始化 GLFW");
         }
+        glfwInitialize = true;
     }
 
     public int getWidth() {
@@ -121,6 +124,7 @@ public class OffscreenRenderer {
     }
 
     private void setupFBO() {
+        if(!glfwInitialize) return;
         fbo = glGenFramebuffers();
         glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
@@ -139,11 +143,13 @@ public class OffscreenRenderer {
     }
 
     public void makeCurrent() {
+        if(!glfwInitialize) return ;
         glfwMakeContextCurrent(window);
         ImGui.setCurrentContext(this.imGuiContext);
     }
 
     public byte[] render(UiLogic uiLogic) {
+        if(!glfwInitialize) return null;
         glfwPollEvents();
 
         ImGuiIO io = ImGui.getIO();
@@ -200,6 +206,7 @@ public class OffscreenRenderer {
 
 
     public static int uploadTexture(BufferedImage image) {
+        if(!glfwInitialize) return 0;
         int width = image.getWidth();
         int height = image.getHeight();
 
@@ -237,16 +244,18 @@ public class OffscreenRenderer {
 
     public void cleanup() {
         try {
+            if(!glfwInitialize) return;
             makeCurrent();
-            imGuiGl3.shutdown();
-            imGuiGlfw.shutdown();
-            ImGui.destroyContext();
-            glDeleteFramebuffers(fbo);
-            glDeleteTextures(texture);
+////            imGuiGl3.shutdown();
+////            imGuiGlfw.shutdown();
+////            ImGui.destroyContext();
+//            glDeleteFramebuffers(fbo);
+//            glDeleteTextures(texture);
             glfwDestroyWindow(window);
         }catch(Exception e) {}
     }
     public static void cleanupGLFW() {
+        glfwInitialize = false;
         glfwTerminate();
     }
 }

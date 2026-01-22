@@ -1,13 +1,10 @@
-package persistence;
+package com.wiyuka.fluxCanvas.persistence;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import com.wiyuka.fluxCanvas.FluxCanvas;
 import com.wiyuka.fluxCanvas.renderer.FluxScreen;
 import com.wiyuka.fluxCanvas.renderer.ScreenManager;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.eclipse.sisu.launch.Main;
 
 import java.io.File;
 import java.io.IOException;
@@ -87,5 +84,10 @@ public class PersistenceManager {
             }
 //                FluxCanvas.warn("Failed to load screen from file: " + file.getName());
         }
+    }
+
+    public static void removeScreenFromData(String id) {
+        var targetFile = new File(path, id + ".json");
+        if (targetFile.exists()) targetFile.deleteOnExit();
     }
 }

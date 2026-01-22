@@ -5,14 +5,10 @@ import com.wiyuka.fluxCanvas.config.ConfigManager;
 import com.wiyuka.fluxCanvas.events.*;
 import com.wiyuka.fluxCanvas.renderer.OffscreenRenderer;
 import com.wiyuka.fluxCanvas.renderer.ScreenManager;
-import com.wiyuka.fluxCanvas.renderer.TextureManager;
-import com.wiyuka.fluxCanvas.tools.ScreenBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
-import org.bukkit.World;
-import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
-import persistence.PersistenceManager;
+import com.wiyuka.fluxCanvas.persistence.PersistenceManager;
 
 import java.io.IOException;
 

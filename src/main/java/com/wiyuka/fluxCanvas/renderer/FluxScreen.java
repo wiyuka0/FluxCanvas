@@ -1,6 +1,7 @@
 package com.wiyuka.fluxCanvas.renderer;
 
 import com.wiyuka.fluxCanvas.FluxCanvas;
+import com.wiyuka.fluxCanvas.persistence.PersistenceManager;
 import com.wiyuka.fluxCanvas.renderer.map.DynamicMapRenderer;
 import com.wiyuka.fluxCanvas.renderer.ui.CanvasUI;
 import com.wiyuka.fluxCanvas.tracker.MultiContainerTracker;
@@ -13,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
 import org.bukkit.map.MapView;
 import org.bukkit.persistence.PersistentDataType;
-import persistence.ScreenData;
+import com.wiyuka.fluxCanvas.persistence.ScreenData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -225,18 +226,20 @@ public class FluxScreen {
     }
 
     public void destroyImpl() {
-        Bukkit.getGlobalRegionScheduler().run(FluxCanvas.getInstance(), task -> {
+        Bukkit.getGlobalRegionScheduler().runDelayed(FluxCanvas.getInstance(), task -> {
             for (GlowItemFrame frame : frames)
                 if (frame != null && frame.isValid())
                     frame.remove();
-        });
-        frames.clear();
+            frames.clear();
+        }, 1);
+//        frames.clear();
         renderer.cleanup();
         clearLinks();
     }
 
     public void markDestroy() {
         this.destroyed = true;
+        PersistenceManager.removeScreenFromData(id);
     }
 
     private void cleanupOldFrames(Location loc) {
