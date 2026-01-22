@@ -1,7 +1,9 @@
 # FluxCanvas
 
 **FluxCanvas** 是一个基于 **ImGui** 的 Minecraft 可视化界面库。
-旨在为物品存储与物流网络提供数据监控面板，采用的深色工业风设计，提供实时流速计算、历史趋势示波器及网络拓扑管理。
+旨在为物品存储与物流网络提供数据监控面板。
+
+**该项目目前处于早期开发阶段，可能会出现意料之外的bug，例如：崩服，无法启动等，请务必备份好自己的存档。欢迎提交Issue与PR**
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Java](https://img.shields.io/badge/Java-17%2B-orange)
@@ -21,11 +23,6 @@
   - **交互式游标**: 鼠标悬停支持十字准星与数值标签，伴随扫描线动画。
 - **ETF 预测 (Estimated Time to Full)**: 基于当前速率计算仓库爆仓或清空所需的预计时间。
 - **时间跨度切换**: 支持 `REALTIME` (实时)、`1 HOUR` (小时均值)、`1 DAY` (日均值) 切换。
-
-### 3. 网络拓扑 (Network Topology)
-- 可视化显示所有链接的容器节点 (`Container Nodes`)。
-- 显示节点坐标与方块类型。
-- 支持直接在 UI 中断开节点链接 (`Unlink`)。
 
 ---
 
