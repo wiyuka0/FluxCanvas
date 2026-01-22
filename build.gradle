@@ -46,6 +46,15 @@ tasks {
         // Your plugin's jar (or shadowJar if present) will be used automatically.
         minecraftVersion("1.21.1")
     }
+
+    shadowJar {
+        mergeServiceFiles()
+
+        exclude 'META-INF/versions/*/module-info.class'
+        exclude 'module-info.class'
+
+        archiveClassifier.set('')
+    }
 }
 
 tasks.build {

@@ -3,6 +3,7 @@ package com.wiyuka.fluxCanvas;
 import com.wiyuka.fluxCanvas.commands.FluxCanvasCommand;
 import com.wiyuka.fluxCanvas.config.ConfigManager;
 import com.wiyuka.fluxCanvas.events.*;
+import com.wiyuka.fluxCanvas.persistence.ResourceExtractor;
 import com.wiyuka.fluxCanvas.renderer.OffscreenRenderer;
 import com.wiyuka.fluxCanvas.renderer.ScreenManager;
 import org.bukkit.Bukkit;
@@ -10,6 +11,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.wiyuka.fluxCanvas.persistence.PersistenceManager;
 
+import java.io.File;
 import java.io.IOException;
 
 public final class FluxCanvas extends JavaPlugin {
@@ -39,9 +41,16 @@ public final class FluxCanvas extends JavaPlugin {
         return main;
     }
 
+    public File jarFile() {
+        return this.getFile();
+    }
+
     @Override
     public void onEnable() {
         main = this;
+
+        new ResourceExtractor(this).extractDataToRoot(false);
+
         OffscreenRenderer.initGLFW();
         Bukkit.getPluginManager().registerEvents(new ServerInputHandler(), this);
         Bukkit.getPluginManager().registerEvents(new TickListener(), this);
@@ -49,6 +58,7 @@ public final class FluxCanvas extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new WorldLoadListener(this), this);
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
+        this.getFile();
         try {
             ConfigManager.initConfig();
         } catch (IOException e) {
@@ -64,6 +74,6 @@ public final class FluxCanvas extends JavaPlugin {
     public void onDisable() {
         PersistenceManager.saveAll();
         OffscreenRenderer.cleanupGLFW();
-//        TextureManager.cleanup();
+
     }
 }
