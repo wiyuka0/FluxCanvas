@@ -90,10 +90,7 @@ public class FluxCanvasCommand implements CommandExecutor, TabCompleter {
                 blockFace.getDirection().getY(),
                 blockFace.getDirection().getZ()
         ).getBlock();
-//        if (target.getType().isAir()) {
-//            player.sendMessage("§c请对准一个方块作为屏幕的【左上角】起点！");
-//            return;
-//        }
+
 
         ScreenBuilder.startBuilding(player, target.getLocation());
         player.sendMessage("§a[Flux] 起点已设定！");

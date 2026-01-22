@@ -50,7 +50,7 @@ public final class FluxCanvas extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ServerInputHandler(), this);
         Bukkit.getPluginManager().registerEvents(new TickListener(), this);
         Bukkit.getPluginManager().registerEvents(new LinkerListener(), this);
-        Bukkit.getPluginManager().registerEvents(new WorldLoadListener(), this);
+        Bukkit.getPluginManager().registerEvents(new WorldLoadListener(this), this);
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
         try {
@@ -68,6 +68,6 @@ public final class FluxCanvas extends JavaPlugin {
     public void onDisable() {
         PersistenceManager.saveAll();
         OffscreenRenderer.cleanupGLFW();
-        TextureManager.cleanup();
+//        TextureManager.cleanup();
     }
 }
